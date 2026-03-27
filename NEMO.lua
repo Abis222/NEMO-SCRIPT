@@ -1,25 +1,27 @@
--- استدعاء المكتبة (السيارة)
+-- استدعاء مكتبة Redz الأصلية
 local RedzLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/real-redz/RedzLibV5/main/Source.lua"))()
 
--- تشغيل النافذة (المفتاح)
+-- إنشاء النافذة بنفس اسم سكربتك وحقوقك
 local Window = RedzLib:MakeWindow({
   Title = "NEMO HUB",
   SubTitle = "by Abbas",
   SaveFolder = "NemoConfig.json"
 })
 
--- إضافة زر الاختصار الدائري (NO)
+-- إضافة الزر الدائري (NO) لإخفاء وإظهار القائمة
 Window:AddMinimizeButton({
   ButtonText = "NO",
   Description = "NEMO HUB Toggle",
   Icon = "rbxassetid://15298567397" 
 })
 
--- إنشاء القسم الوحيد (Main) كما طلبت
+-- إنشاء قسم Main (الوحيد حالياً)
 local MainTab = Window:MakeTab({
   Name = "Main",
   Icon = "rbxassetid://4483345998"
 })
 
--- كتابة ترحيب بسيطة لتتأكد أنها اشتغلت
+-- ترحيب داخل القسم لكي تتأكد أنه اشتغل
 MainTab:AddSection({"Welcome Abbas to NEMO HUB"})
+
+MainTab:AddParagraph("Status","The script is now working perfectly!")
