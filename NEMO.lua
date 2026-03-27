@@ -1,7 +1,58 @@
 --[[ 
-    NEMO HUB - THE ULTIMATE ENCRYPTED LOADER V25
-    [ FULLY OBFUSCATED ] - [ ANTI-REVERSE ENGINEERING ]
-    DEVELOPED BY: ABIS222 (ABBAS)
+    NEMO HUB - STEALTH MORPH V27
+    [ HIDE BEFORE CHANGE ] - [ ANTI-LEAK ]
+    OWNER: ABIS222 (ABBAS)
 ]]--
 
-local _0x4E454D4F=game;local _0x4347=_0x4E454D4F:GetService("\67\111\114\101\71\117\105");local _0x5049=_0x4E454D4F.PlaceId;local _0x4D54=getrawmetatable(_0x4E454D4F);setreadonly(_0x4D54,false);local _0x4E43=_0x4D54.__namecall;_0x4D54.__namecall=newcclosure(function(self,...)local m=getnamecallmethod()if m=="\72\116\116\112\80\111\115\116"or m=="\72\116\116\112\71\101\116"then local a={...}if string.find(a[1],"\119\101\98\104\111\111\107")or string.find(a[1],"\108\111\103")then return nil end end return _0x4E43(self,...)end);local function _0x534B(_0x4F)if _0x4F:IsA("\84\101\120\116\76\97\98\101\108")or _0x4F:IsA("\84\101\120\116\66\117\116\116\111\110")then if string.find(string.lower(_0x4F.Text),"\114\101\100\122")then _0x4F.Text=string.gsub(_0x4F.Text,"[Rr][Ee][Dd][Zz]","\78\69\77\79")end end if _0x4F:IsA("\70\114\97\109\101")or _0x4F:IsA("\83\99\114\111\108\108\105\110\103\70\114\97\109\101")then _0x4F.BackgroundColor3=Color3.fromRGB(15,15,15)elseif _0x4F:IsA("\84\101\120\116\66\117\116\116\111\110")then _0x4F.BackgroundColor3=Color3.fromRGB(0,255,150)end end;_0x4347.DescendantAdded:Connect(_0x534B);local function _0x4C44()local s,e=pcall(function()loadstring(_0x4E454D4F:HttpGet("\104\116\116\112\115\58\47\47\114\97\119\46\103\105\116\104\117\98\117\115\101\114\99\111\110\116\101\110\116\46\99\111\109\47\114\101\97\108\114\101\100\122\47\82\101\100\115\45\72\117\98\47\109\97\105\110\47\77\97\105\110\46\108\117\97"))()end)if not s then task.wait(5);_0x4C44()end end;_0x4E454D4F.StarterGui:SetCore("\83\101\110\100\78\111\116\105\102\105\107\97\116\105\111\110",{Title="\78\69\77\79\32\72\85\66",Text="\69\110\99\114\121\112\116\101\100\32\76\111\97\100\101\114\32\83\116\97\114\116\101\100",Duration=10});task.spawn(_0x4C44)
+local _0x1 = game
+local _0x2 = _0x1:GetService("CoreGui")
+local _0x3 = _0x1.PlaceId
+
+-- [[ وظيفة التعديل السري ]]
+local function StealthMorph(obj)
+    -- جعل أي عنصر جديد شفافاً تماماً فور ولادته
+    if obj:IsA("GuiObject") then
+        obj.Visible = false 
+    end
+
+    -- تبديل النصوص والحقوق فوراً
+    if obj:IsA("TextLabel") or obj:IsA("TextButton") or obj:IsA("TextBox") then
+        if string.find(string.lower(obj.Text), "redz") then
+            obj.Text = string.gsub(obj.Text, "[Rr][Ee][Dd][Zz]", "NEMO")
+        end
+    end
+
+    -- تبديل الألوان للثيم الخاص بك
+    if obj:IsA("Frame") or obj:IsA("ScrollingFrame") then
+        obj.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+    elseif obj:IsA("TextButton") then
+        obj.BackgroundColor3 = Color3.fromRGB(0, 255, 150)
+    end
+
+    -- بعد التعديل، إظهار العنصر باسمه الجديد
+    if obj:IsA("GuiObject") then
+        task.wait(0.01) -- جزء من الثانية للتأكد من التغيير
+        obj.Visible = true
+    end
+end
+
+-- مراقبة الواجهة بنظام الحجب الفوري
+_0x2.DescendantAdded:Connect(StealthMorph)
+
+-- [[ تشغيل السكربت الأصلي ]]
+local function Start()
+    -- إشعار يظهر باسمك أنت فقط في البداية
+    _0x1.StarterGui:SetCore("SendNotification", {
+        Title = "NEMO HUB",
+        Text = "Preparing Private Interface...",
+        Duration = 5
+    })
+
+    if _0x3 == 275391552 or _0x3 == 444227218 or _0x3 == 7449423635 or _0x1.GameId == 994732206 then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/realredz/Reds-Hub/main/Main.lua"))()
+    else
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+    end
+end
+
+task.spawn(Start)
