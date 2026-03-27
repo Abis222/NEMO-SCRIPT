@@ -1,61 +1,65 @@
 --[[ 
-    NEMO HUB - ULTIMATE REPAIR V32
-    [ FIXED LOADING ] - [ FULL RIGHTS ] - [ NO ERRORS ]
-    DEVELOPED FOR: ABBAS (ABIS222)
+    NEMO HUB - OMNI-ENGINE V33
+    [ AUTO-REPAIR ] - [ TRIPLE INJECTION ] - [ NO ERRORS ]
+    OWNER: ABBAS (ABIS222)
 ]]--
 
--- منع تكرار التشغيل
+-- [ 1. منع التكرار لضمان استقرار الهاتف ]
 if _G.NemoLoaded then return end
 _G.NemoLoaded = true
 
 local game = game
 local CoreGui = game:GetService("CoreGui")
 
--- [[ 1. محرك تغيير الحقوق (NEMO ENGINE) ]]
--- يعمل في الخلفية وبسرعة فائقة لتغيير كل شيء يخص Redz
-local function ApplyNemo(v)
-    if v:IsA("TextLabel") or v:IsA("TextButton") then
-        if v.Text:lower():find("redz") then
-            v.Text = v.Text:gsub("[Rr][Ee][Dd][Zz]", "NEMO")
+-- [ 2. محرك تغيير الحقوق الفوري (Instant Morph) ]
+local function ApplyBranding(obj)
+    if obj:IsA("TextLabel") or obj:IsA("TextButton") or obj:IsA("TextBox") then
+        if string.find(string.lower(obj.Text), "redz") then
+            obj.Text = string.gsub(obj.Text, "[Rr][Ee][Dd][Zz]", "NEMO")
         end
     end
-    if v:IsA("Frame") or v:IsA("ScrollingFrame") then
-        v.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
-    elseif v:IsA("TextButton") then
-        v.BackgroundColor3 = Color3.fromRGB(0, 255, 150)
+    -- تطبيق ثيم NEMO (أسود وأخضر)
+    if obj:IsA("Frame") or obj:IsA("ScrollingFrame") then
+        obj.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+    elseif obj:IsA("TextButton") then
+        obj.BackgroundColor3 = Color3.fromRGB(0, 255, 150)
     end
 end
+CoreGui.DescendantAdded:Connect(ApplyBranding)
 
-CoreGui.DescendantAdded:Connect(ApplyNemo)
+-- [ 3. محرك الحقن الثلاثي (Triple Injector) ]
+local function StartScript()
+    game.StarterGui:SetCore("SendNotification", {
+        Title = "NEMO HUB",
+        Text = "Trying Injection Mode...",
+        Duration = 5
+    })
 
--- [[ 2. إشعار البدء (للتأكد أن السكربت لم يمت) ]]
-game.StarterGui:SetCore("SendNotification", {
-    Title = "NEMO HUB",
-    Text = "System Activated - Loading Interface...",
-    Duration = 10
-})
+    local RedzUrl = "https://raw.githubusercontent.com/realredz/Reds-Hub/main/Main.lua"
+    
+    -- الطريقة الأولى: جلب مباشر
+    local success, content = pcall(function() return game:HttpGet(RedzUrl) end)
+    
+    if success and content then
+        local run, err = loadstring(content)
+        if run then
+            run()
+            return -- نجح التشغيل، توقف هنا
+        end
+    end
 
--- [[ 3. محرك جلب السكربت المصلح ]]
-local function LoadSource()
-    local Success, Source = pcall(function()
-        return game:HttpGet("https://raw.githubusercontent.com/realredz/Reds-Hub/main/Main.lua")
+    -- الطريقة الثانية (إذا فشلت الأولى): تحميل مباشر وسريع
+    task.wait(2)
+    pcall(function()
+        loadstring(game:HttpGet(RedzUrl))()
     end)
     
-    if Success and Source then
-        local Load = loadstring(Source)
-        if Load then
-            Load()
-        else
-            -- محاولة أخيرة في حال فشل الـ loadstring
-            task.wait(2)
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/realredz/Reds-Hub/main/Main.lua"))()
-        end
-    else
-        -- إذا فشل الإنترنت في الناصرية، يعيد المحاولة بعد 5 ثواني
-        task.wait(5)
-        LoadSource()
+    -- الطريقة الثالثة (في حال فشل المابات الأخرى): دعم شامل
+    task.wait(5)
+    if not CoreGui:FindFirstChild("REDZ_HUB") and not CoreGui:FindFirstChild("NEMO") then
+        -- إذا لم تظهر القائمة، يشغل نسخة احتياطية خفيفة
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
     end
 end
 
--- تشغيل المحرك
-task.spawn(LoadSource)
+task.spawn(StartScript)
