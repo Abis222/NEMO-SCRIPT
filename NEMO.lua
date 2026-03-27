@@ -1,52 +1,38 @@
 --[[ 
-    NEMO HUB - REDZ EDITION V34
-    [ BLOX FRUITS SPECIAL ] - [ FULL MORPH ]
+    NEMO HUB - FINAL STABLE V35
+    [ NO INFINITE LOADING ] - [ FAST OPEN ]
     OWNER: ABBAS (ABIS222)
 ]]--
 
+-- [ 1. منع التكرار ]
 if _G.NemoLoaded then return end
 _G.NemoLoaded = true
 
-local CoreGui = game:GetService("CoreGui")
-
--- [[ 1. محرك تحويل الحقوق والألوان (NEMO MORPH) ]]
-local function ApplyNemo(v)
-    -- تحويل النصوص
-    if v:IsA("TextLabel") or v:IsA("TextButton") then
-        if v.Text:lower():find("redz") or v.Text:lower():find("hub") then
-            v.Text = v.Text:gsub("[Rr][Ee][Dd][Zz]", "NEMO")
+-- [ 2. محرك التغيير الصامت ]
+-- هذا المحرك يظل ينتظر في الخلفية حتى تظهر القائمة الأصلية ثم "يصيدها"
+task.spawn(function()
+    while task.wait(0.5) do
+        for _, v in pairs(game:GetService("CoreGui"):GetDescendants()) do
+            if v:IsA("TextLabel") or v:IsA("TextButton") then
+                if v.Text:lower():find("redz") then
+                    v.Text = v.Text:gsub("[Rr][Ee][Dd][Zz]", "NEMO")
+                end
+            end
+            -- تغيير ألوان الأزرار للثيم الخاص بك
+            if v:IsA("TextButton") and v.BackgroundColor3 ~= Color3.fromRGB(0, 255, 150) then
+                v.BackgroundColor3 = Color3.fromRGB(0, 255, 150)
+            end
         end
     end
-    -- تحويل الألوان للأسود والأخضر
-    if v:IsA("Frame") or v:IsA("ScrollingFrame") then
-        v.BackgroundColor3 = Color3.fromRGB(15, 15, 15) -- خلفية سوداء
-    elseif v:IsA("TextButton") then
-        v.BackgroundColor3 = Color3.fromRGB(0, 255, 150) -- أزرار خضراء
-        v.TextColor3 = Color3.new(1, 1, 1)
-    end
-end
+end)
 
-CoreGui.DescendantAdded:Connect(ApplyNemo)
-
--- [[ 2. إشعار التشغيل ]]
-game.StarterGui:SetCore("SendNotification", {
+-- [ 3. إشعار البدء الخفيف ]
+game:GetService("StarterGui"):SetCore("SendNotification", {
     Title = "NEMO HUB",
-    Text = "Loading Blox Fruits Script...",
-    Duration = 10
+    Text = "Starting... Please wait 10 seconds",
+    Duration = 5
 })
 
--- [[ 3. تشغيل Redz Hub الأصلي مباشرة ]]
-local function LoadRedz()
-    local url = "https://raw.githubusercontent.com/realredz/Reds-Hub/main/Main.lua"
-    local success, content = pcall(function() return game:HttpGet(url) end)
-    
-    if success and content then
-        loadstring(content)()
-    else
-        -- إعادة محاولة في حال فشل الإنترنت
-        task.wait(3)
-        loadstring(game:HttpGet(url))()
-    end
-end
-
-task.spawn(LoadRedz)
+-- [ 4. تشغيل السكربت الأصلي بأبسط طريقة ممكنة ]
+-- استخدمت الرابط المباشر بدون تعقيدات لضمان تخطي الـ Loading
+loadstring(game:HttpGet("https://raw.githubusercontent.com/realredz/Reds-Hub/main/Main.lua"))()
