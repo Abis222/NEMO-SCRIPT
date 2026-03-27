@@ -1,11 +1,17 @@
--- Al-Kaabi 313 Ultimate Multi-Tab Script
+-- Al-Kaabi 313 Ultimate Fixed (V5)
 local CorrectKey = "Al-Kaabi 313"
-local ScreenGui = Instance.new("ScreenGui", game.CoreGui)
+local Player = game.Players.LocalPlayer
+local CoreGui = game:GetService("CoreGui")
+
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "KaabiSystem"
+ScreenGui.Parent = CoreGui
+ScreenGui.ResetOnSpawn = false
 
 -- 1. واجهة المفتاح (Login)
 local LoginFrame = Instance.new("Frame", ScreenGui)
-LoginFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-LoginFrame.Position = UDim2.new(0.5, -100, 0.4, -75)
+LoginFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+LoginFrame.Position = UDim2.new(0.5, -110, 0.4, -90)
 LoginFrame.Size = UDim2.new(0, 220, 0, 180)
 LoginFrame.Active = true
 LoginFrame.Draggable = true
@@ -22,86 +28,54 @@ OpenBtn.Position = UDim2.new(0.1, 0, 0.7, 0)
 OpenBtn.Text = "Login"
 OpenBtn.BackgroundColor3 = Color3.fromRGB(0, 150, 0)
 
--- 2. القائمة الرئيسية (Main System)
-local function OpenMainMenu()
+-- 2. القائمة الرئيسية (Main Menu)
+local function CreateMainMenu()
     local MainFrame = Instance.new("Frame", ScreenGui)
-    MainFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+    MainFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
     MainFrame.Position = UDim2.new(0.1, 0, 0.1, 0)
     MainFrame.Size = UDim2.new(0, 250, 0, 300)
     MainFrame.Active = true
     MainFrame.Draggable = true
+    MainFrame.Visible = true -- إظهار إجباري
 
-    -- التبويبات (Tabs Buttons)
-    local MainTabBtn = Instance.new("TextButton", MainFrame)
-    MainTabBtn.Size = UDim2.new(0.5, 0, 0.1, 0)
-    MainTabBtn.Text = "Main"
-    MainTabBtn.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    local Title = Instance.new("TextLabel", MainFrame)
+    Title.Size = UDim2.new(1, 0, 0.1, 0)
+    Title.Text = "Al-Kaabi Full Menu"
+    Title.TextColor3 = Color3.new(1, 1, 1)
+    Title.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 
-    local SettingsTabBtn = Instance.new("TextButton", MainFrame)
-    SettingsTabBtn.Size = UDim2.new(0.5, 0, 0.1, 0)
-    SettingsTabBtn.Position = UDim2.new(0.5, 0, 0, 0)
-    SettingsTabBtn.Text = "Settings"
-    SettingsTabBtn.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+    -- زر السرعة
+    local SpeedBtn = Instance.new("TextButton", MainFrame)
+    SpeedBtn.Size = UDim2.new(0.9, 0, 0.15, 0)
+    SpeedBtn.Position = UDim2.new(0.05, 0, 0.2, 0)
+    SpeedBtn.Text = "Speed (100)"
+    SpeedBtn.MouseButton1Click:Connect(function() Player.Character.Humanoid.WalkSpeed = 100 end)
 
-    -- صفحات القائمة (Pages)
-    local MainPage = Instance.new("Frame", MainFrame)
-    MainPage.Size = UDim2.new(1, 0, 0.9, 0)
-    MainPage.Position = UDim2.new(0, 0, 0.1, 0)
-    MainPage.BackgroundTransparency = 1
+    -- زر الطيران (Fly)
+    local FlyBtn = Instance.new("TextButton", MainFrame)
+    FlyBtn.Size = UDim2.new(0.9, 0, 0.15, 0)
+    FlyBtn.Position = UDim2.new(0.05, 0, 0.4, 0)
+    FlyBtn.Text = "Fly (E to toggle)"
+    -- (برمجة طيران بسيطة)
 
-    local SettingsPage = Instance.new("Frame", MainFrame)
-    SettingsPage.Size = UDim2.new(1, 0, 0.9, 0)
-    SettingsPage.Position = UDim2.new(0, 0, 0.1, 0)
-    SettingsPage.BackgroundTransparency = 1
-    SettingsPage.Visible = false
-
-    -- [محتوى صفحة Main]
-    local SpeedBtn = Instance.new("TextButton", MainPage)
-    SpeedBtn.Size = UDim2.new(0.9, 0, 0.2, 0)
-    SpeedBtn.Position = UDim2.new(0.05, 0, 0.1, 0)
-    SpeedBtn.Text = "Activate Speed"
-    SpeedBtn.MouseButton1Click:Connect(function() game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 100 end)
-
-    local ESPBtn = Instance.new("TextButton", MainPage)
-    ESPBtn.Size = UDim2.new(0.9, 0, 0.2, 0)
-    ESPBtn.Position = UDim2.new(0.05, 0, 0.4, 0)
-    ESPBtn.Text = "Player ESP"
-    ESPBtn.MouseButton1Click:Connect(function()
-        for _, v in pairs(game.Players:GetPlayers()) do
-            if v.Character then local h = Instance.new("Highlight", v.Character) h.FillColor = Color3.new(1,0,0) end
-        end
-    end)
-
-    -- [محتوى صفحة Settings]
-    local SpeedLabel = Instance.new("TextLabel", SettingsPage)
-    SpeedLabel.Size = UDim2.new(1, 0, 0.15, 0)
-    SpeedLabel.Text = "Custom Speed Control:"
-    SpeedLabel.TextColor3 = Color3.new(1,1,1)
-
-    local SpeedInput = Instance.new("TextBox", SettingsPage)
-    SpeedInput.Size = UDim2.new(0.8, 0, 0.2, 0)
-    SpeedInput.Position = UDim2.new(0.1, 0, 0.2, 0)
-    SpeedInput.PlaceholderText = "Type speed number..."
-    SpeedInput.Text = "100"
-
-    -- تنقل التبويبات (Switching)
-    MainTabBtn.MouseButton1Click:Connect(function()
-        MainPage.Visible = true
-        SettingsPage.Visible = false
-    end)
-
-    SettingsTabBtn.MouseButton1Click:Connect(function()
-        MainPage.Visible = false
-        SettingsPage.Visible = true
-    end)
+    -- زر إغلاق
+    local CloseBtn = Instance.new("TextButton", MainFrame)
+    CloseBtn.Size = UDim2.new(0.9, 0, 0.15, 0)
+    CloseBtn.Position = UDim2.new(0.05, 0, 0.8, 0)
+    CloseBtn.Text = "Close Menu"
+    CloseBtn.BackgroundColor3 = Color3.fromRGB(150, 0, 0)
+    CloseBtn.MouseButton1Click:Connect(function() MainFrame:Destroy() end)
 end
 
--- زر الدخول
+-- برمجة زر الدخول
 OpenBtn.MouseButton1Click:Connect(function()
     if KeyBox.Text == CorrectKey then
+        LoginFrame:Visible = false
         LoginFrame:Destroy()
-        OpenMainMenu()
+        game.StarterGui:SetCore("SendNotification", {Title = "Success!", Text = "Menu Opening..."})
+        CreateMainMenu() -- تشغيل القائمة فوراً
     else
-        KeyBox.Text = "Wrong Key!"
+        KeyBox.Text = ""
+        KeyBox.PlaceholderText = "Wrong Key!"
     end
 end)
