@@ -1,74 +1,94 @@
 --[[ 
-    NEMO HUB - OFFICIAL PRO INTERFACE V1
-    INSPIRED BY REDZ HUB LAYOUT
+    NEMO HUB - THE PROFESSIONAL BASE V42
+    [ REDZ STYLE ] - [ DRAGGABLE ENABLED ]
     OWNER: ABBAS (ABIS222)
-    STATUS: EMPTY FEATURES / NEMO BRANDING ONLY
 ]]--
 
--- 1. استدعاء مكتبة الواجهة الاحترافية (Ui Library)
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/GreenDeno/Venyx-UI-Library/main/source.lua"))()
+local ScreenGui = Instance.new("ScreenGui")
+local MainFrame = Instance.new("Frame")
+local TopBar = Instance.new("Frame")
+local LeftSidebar = Instance.new("Frame")
+local ContentFrame = Instance.new("Frame")
+local Title = Instance.new("TextLabel")
 
--- 2. إنشاء القائمة الرئيسية باسم NEMO HUB
-local NemoHub = Library.new("NEMO HUB", 5013107573)
+-- 1. إعدادات الحماية والظهور
+ScreenGui.Parent = game:GetService("CoreGui")
+ScreenGui.Name = "NEMO_HUB_PRO"
 
--- 3. إعداد سمات الألوان (تشبه Redz)
-local Theme = {
-    Background = Color3.fromRGB(20, 20, 20),
-    Accent = Color3.fromRGB(0, 255, 150), -- لون نيمو الأخضر
-    TopBar = Color3.fromRGB(25, 25, 25),
-    Texts = Color3.fromRGB(255, 255, 255)
-}
+-- 2. الإطار الرئيسي (نفس أبعاد وشكل Redz)
+MainFrame.Name = "MainFrame"
+MainFrame.Parent = ScreenGui
+MainFrame.BackgroundColor3 = Color3.fromRGB(18, 18, 18) -- لون Redz المعتاد
+MainFrame.Position = UDim2.new(0.3, 0, 0.2, 0)
+MainFrame.Size = UDim2.new(0, 550, 0, 350)
+MainFrame.BorderSizePixel = 0
 
--- 4. إنشاء الأقسام (Tabs) - فارغة تماماً
--- (هنا ننشئ الأقسام التي تظهر على اليسار في الصورة)
-local FarmTab = NemoHub:addPage("Farming", 5013101385)
-local CombatTab = NemoHub:addPage("Combat", 5013101385)
-local TeleportTab = NemoHub:addPage("Teleport", 5013101385)
-local PlayersTab = NemoHub:addPage("Players", 5013101385)
-local SettingsTab = NemoHub:addPage("Settings", 5013101385)
+local MainCorner = Instance.new("UICorner")
+MainCorner.CornerRadius = UDim2.new(0, 8)
+MainCorner.Parent = MainFrame
 
--- 5. إنشاء الأزرار (Buttons) والقوائم (Dropdowns) داخل الأقسام
--- (هذه الأزرار موجودة شكلياً فقط، لا تفعل شيئاً)
+-- 3. ميزة الحركة (التحريك بالسحب)
+local dragging, dragInput, dragStart, startPos
+local function update(input)
+    local delta = input.Position - dragStart
+    MainFrame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+end
 
--- [ قسم Farming ]
-local FarmSection = FarmTab:addSection("Main Farm")
-FarmSection:addButton("Select Melee, Sword, Gun, Fruit", function()
-    -- فارغ
-end)
-FarmSection:addDropdown("Ch\xe1\xbb\x8dn C\xc3\xb4ng C\xe1\xbb\xa5", {"Melee", "Sword", "Fruit"}, function(selected)
-    -- فارغ
-end)
-FarmSection:addToggle("Auto Farm Level", false, function(value)
-    -- فارغ
-end)
-FarmSection:addToggle("Auto Kill Near | Mob Aura", false, function(value)
-    -- فارغ
-end)
-
--- [ قسم Boss ]
-local BossSection = FarmTab:addSection("Boss")
-BossSection:addDropdown("Select Boss", {"The Gorilla King", "The Saw", "Vice Admiral"}, function(selected)
-    -- فارغ
+MainFrame.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        dragging = true
+        dragStart = input.Position
+        startPos = MainFrame.Position
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then dragging = false end
+        end)
+    end
 end)
 
--- [ قسم Teleport ]
-local TeleportSection = TeleportTab:addSection("Island Teleport")
-TeleportSection:addButton("Teleport to First Sea", function()
-    -- فارغ
+MainFrame.InputChanged:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+        dragInput = input
+    end
 end)
 
--- [ قسم Settings ]
-local SettingsSection = SettingsTab:addSection("Credits")
-SettingsSection:addButton("Developed by Abbas (ABIS222)", function()
-    -- فارغ
+game:GetService("UserInputService").InputChanged:Connect(function(input)
+    if input == dragInput and dragging then update(input) end
 end)
 
--- 6. تشغيل القائمة
-NemoHub:SelectPage(FarmTab, true)
+-- 4. الشريط العلوي (Top Bar)
+TopBar.Name = "TopBar"
+TopBar.Parent = MainFrame
+TopBar.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+TopBar.Size = UDim2.new(1, 0, 0, 40)
+TopBar.BorderSizePixel = 0
 
--- إشعار الترحيب
-game:GetService("StarterGui"):SetCore("SendNotification", {
-    Title = "NEMO HUB",
-    Text = "Pro UI V1 Loaded Successfully!",
-    Duration = 5
-})
+local TopCorner = Instance.new("UICorner")
+TopCorner.Parent = TopBar
+
+Title.Parent = TopBar
+Title.Text = "NEMO HUB | VERSION 1.0"
+Title.TextColor3 = Color3.fromRGB(0, 255, 150)
+Title.TextSize = 18
+Title.Font = Enum.Font.GothamBold
+Title.Size = UDim2.new(1, 0, 1, 0)
+Title.Position = UDim2.new(0.03, 0, 0, 0)
+Title.TextXAlignment = Enum.TextXAlignment.Left
+
+-- 5. القائمة الجانبية (Sidebar)
+LeftSidebar.Name = "Sidebar"
+LeftSidebar.Parent = MainFrame
+LeftSidebar.BackgroundColor3 = Color3.fromRGB(22, 22, 22)
+LeftSidebar.Position = UDim2.new(0, 0, 0, 40)
+LeftSidebar.Size = UDim2.new(0, 140, 1, -40)
+
+-- 6. منطقة المحتوى (فارغة لتضيف ميزاتك)
+ContentFrame.Name = "Content"
+ContentFrame.Parent = MainFrame
+ContentFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+ContentFrame.Position = UDim2.new(0, 145, 0, 45)
+ContentFrame.Size = UDim2.new(0, 400, 0, 300)
+
+local ContentCorner = Instance.new("UICorner")
+ContentCorner.Parent = ContentFrame
+
+print("NEMO HUB - Draggable UI Loaded!")
