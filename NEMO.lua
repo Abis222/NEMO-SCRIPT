@@ -1,28 +1,31 @@
 --[[ 
-    NEMO HUB - OFFICIAL REDZ STYLE
+    NEMO HUB - THE REAL REDZ UI
     OWNER: ABBAS (ABIS222)
+    LIBRARY: REDZ LIB V5 (MOBILE OPTIMIZED)
 ]]--
 
 local RedzLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/real-redz/RedzLibV5/main/Source.lua"))()
 
 local Window = RedzLib:MakeWindow({
-  Title = "NEMO HUB | by Abbas",
-  SubTitle = "Mobile Edition",
-  SaveFolder = "NemoConfig.json"
+  Title = "NEMO HUB",
+  SubTitle = "by Abbas",
+  SaveFolder = "NemoHubConfig.json"
 })
 
--- إضافة الزر الدائري (التوجل) اللي عليه حقوقك
+-- 1. الزر الدائري العائم (عليه حقوقك NO)
 Window:AddMinimizeButton({
   ButtonText = "NO",
-  Description = "NEMO HUB Toggle",
-  Icon = "rbxassetid://15298567397" -- أيقونة افتراضية
+  Description = "Click to Toggle NEMO HUB",
+  Icon = "rbxassetid://15298567397" -- أيقونة افتراضية فخمة
 })
 
--- إنشاء القسم الوحيد (Main) كما طلبت
+-- 2. القسم الوحيد المفتوح (Main)
 local MainTab = Window:MakeTab({
   Name = "Main",
-  Icon = "rbxassetid://4483345998"
+  Icon = "rbxassetid://4483345998" -- أيقونة البيت (Home)
 })
 
--- القسم فارغ الآن بانتظار إضافاتك
-MainTab:AddSection({"Welcome to NEMO HUB"})
+-- 3. ترحيب داخل القسم (فارغ بانتظار أزرارك)
+MainTab:AddSection({"Welcome Abbas to your Hub"})
+
+MainTab:AddParagraph("Status","NEMO HUB is now active and ready!")
