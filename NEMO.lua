@@ -1,114 +1,74 @@
 --[[ 
-    NEMO HUB - OFFICIAL UI FRAMEWORK
+    NEMO HUB - OFFICIAL PRO INTERFACE V1
+    INSPIRED BY REDZ HUB LAYOUT
     OWNER: ABBAS (ABIS222)
-    STATUS: FULL BRANDING APPLIED
+    STATUS: EMPTY FEATURES / NEMO BRANDING ONLY
 ]]--
 
-local ScreenGui = Instance.new("ScreenGui")
-local MainFrame = Instance.new("Frame")
-local LeftSideBar = Instance.new("Frame")
-local TopBar = Instance.new("Frame")
-local ContentFrame = Instance.new("Frame")
-local Title = Instance.new("TextLabel")
-local TabHolder = Instance.new("ScrollingFrame")
-local UIListLayout = Instance.new("UIListLayout")
+-- 1. استدعاء مكتبة الواجهة الاحترافية (Ui Library)
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/GreenDeno/Venyx-UI-Library/main/source.lua"))()
 
--- إعدادات الشاشة (لحماية الواجهة من المسح)
-ScreenGui.Parent = game:GetService("CoreGui")
-ScreenGui.Name = "NEMO_HUB_V1"
+-- 2. إنشاء القائمة الرئيسية باسم NEMO HUB
+local NemoHub = Library.new("NEMO HUB", 5013107573)
 
--- الإطار الرئيسي (الخلفية السوداء الفخمة)
-MainFrame.Name = "Nemo_MainFrame"
-MainFrame.Parent = ScreenGui
-MainFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 15) 
-MainFrame.Position = UDim2.new(0.3, 0, 0.25, 0)
-MainFrame.Size = UDim2.new(0, 500, 0, 320)
-MainFrame.Active = true
-MainFrame.Draggable = true -- تحريك القائمة في هاتفك Oppo A18
+-- 3. إعداد سمات الألوان (تشبه Redz)
+local Theme = {
+    Background = Color3.fromRGB(20, 20, 20),
+    Accent = Color3.fromRGB(0, 255, 150), -- لون نيمو الأخضر
+    TopBar = Color3.fromRGB(25, 25, 25),
+    Texts = Color3.fromRGB(255, 255, 255)
+}
 
-local MainCorner = Instance.new("UICorner")
-MainCorner.CornerRadius = UDim2.new(0, 10)
-MainCorner.Parent = MainFrame
+-- 4. إنشاء الأقسام (Tabs) - فارغة تماماً
+-- (هنا ننشئ الأقسام التي تظهر على اليسار في الصورة)
+local FarmTab = NemoHub:addPage("Farming", 5013101385)
+local CombatTab = NemoHub:addPage("Combat", 5013101385)
+local TeleportTab = NemoHub:addPage("Teleport", 5013101385)
+local PlayersTab = NemoHub:addPage("Players", 5013101385)
+local SettingsTab = NemoHub:addPage("Settings", 5013101385)
 
--- الشريط العلوي (Top Bar) باللون الأخضر المميز لنيمو
-TopBar.Name = "Nemo_TopBar"
-TopBar.Parent = MainFrame
-TopBar.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-TopBar.Size = UDim2.new(1, 0, 0, 40)
+-- 5. إنشاء الأزرار (Buttons) والقوائم (Dropdowns) داخل الأقسام
+-- (هذه الأزرار موجودة شكلياً فقط، لا تفعل شيئاً)
 
-local TopCorner = Instance.new("UICorner")
-TopCorner.Parent = TopBar
+-- [ قسم Farming ]
+local FarmSection = FarmTab:addSection("Main Farm")
+FarmSection:addButton("Select Melee, Sword, Gun, Fruit", function()
+    -- فارغ
+end)
+FarmSection:addDropdown("Ch\xe1\xbb\x8dn C\xc3\xb4ng C\xe1\xbb\xa5", {"Melee", "Sword", "Fruit"}, function(selected)
+    -- فارغ
+end)
+FarmSection:addToggle("Auto Farm Level", false, function(value)
+    -- فارغ
+end)
+FarmSection:addToggle("Auto Kill Near | Mob Aura", false, function(value)
+    -- فارغ
+end)
 
-Title.Name = "Nemo_Title"
-Title.Parent = TopBar
-Title.Text = "NEMO HUB | BLOX FRUITS"
-Title.TextColor3 = Color3.fromRGB(0, 255, 150) -- لون نيمو الرسمي
-Title.TextSize = 20
-Title.Font = Enum.Font.GothamBold
-Title.Size = UDim2.new(1, 0, 1, 0)
-Title.Position = UDim2.new(0.03, 0, 0, 0)
-Title.TextXAlignment = Enum.TextXAlignment.Left
+-- [ قسم Boss ]
+local BossSection = FarmTab:addSection("Boss")
+BossSection:addDropdown("Select Boss", {"The Gorilla King", "The Saw", "Vice Admiral"}, function(selected)
+    -- فارغ
+end)
 
--- القائمة الجانبية (Sidebar) للأقسام
-LeftSideBar.Name = "Nemo_Sidebar"
-LeftSideBar.Parent = MainFrame
-LeftSideBar.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
-LeftSideBar.Position = UDim2.new(0, 0, 0, 40)
-LeftSideBar.Size = UDim2.new(0, 130, 1, -40)
+-- [ قسم Teleport ]
+local TeleportSection = TeleportTab:addSection("Island Teleport")
+TeleportSection:addButton("Teleport to First Sea", function()
+    -- فارغ
+end)
 
-TabHolder.Name = "Nemo_TabHolder"
-TabHolder.Parent = LeftSideBar
-TabHolder.BackgroundTransparency = 1
-TabHolder.Size = UDim2.new(1, 0, 1, 0)
-TabHolder.ScrollBarThickness = 2
-TabHolder.CanvasSize = UDim2.new(0, 0, 1.5, 0)
+-- [ قسم Settings ]
+local SettingsSection = SettingsTab:addSection("Credits")
+SettingsSection:addButton("Developed by Abbas (ABIS222)", function()
+    -- فارغ
+end)
 
-UIListLayout.Parent = TabHolder
-UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-UIListLayout.Padding = UDim.new(0, 6)
-UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
-
--- إطار المحتوى (Content) حيث سنضع الأزرار لاحقاً
-ContentFrame.Name = "Nemo_Content"
-ContentFrame.Parent = MainFrame
-ContentFrame.BackgroundColor3 = Color3.fromRGB(12, 12, 12)
-ContentFrame.Position = UDim2.new(0, 135, 0, 45)
-ContentFrame.Size = UDim2.new(0, 355, 0, 265)
-
-local ContentCorner = Instance.new("UICorner")
-ContentCorner.Parent = ContentFrame
-
--- وظيفة إنشاء الأقسام (Tabs) لتسهيل العمل
-local function CreateNemoTab(name, icon)
-    local TabBtn = Instance.new("TextButton")
-    TabBtn.Name = name.."_Tab"
-    TabBtn.Parent = TabHolder
-    TabBtn.Size = UDim2.new(0.9, 0, 0, 35)
-    TabBtn.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-    TabBtn.Text = name
-    TabBtn.TextColor3 = Color3.new(1, 1, 1)
-    TabBtn.Font = Enum.Font.GothamSemibold
-    TabBtn.TextSize = 13
-    
-    local BtnCorner = Instance.new("UICorner")
-    BtnCorner.Parent = TabBtn
-    
-    -- تأثير عند الضغط
-    TabBtn.MouseButton1Click:Connect(function()
-        print("Switched to "..name.." Tab in NEMO HUB")
-    end)
-end
-
--- إنشاء الأقسام الأساسية لنيمو هاب
-CreateNemoTab("Main", "")
-CreateNemoTab("Farming", "")
-CreateNemoTab("Combat", "")
-CreateNemoTab("Teleport", "")
-CreateNemoTab("Settings", "")
+-- 6. تشغيل القائمة
+NemoHub:SelectPage(FarmTab, true)
 
 -- إشعار الترحيب
 game:GetService("StarterGui"):SetCore("SendNotification", {
     Title = "NEMO HUB",
-    Text = "Welcome, Abbas! UI Loaded.",
+    Text = "Pro UI V1 Loaded Successfully!",
     Duration = 5
 })
