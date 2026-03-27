@@ -1,32 +1,29 @@
 --[[ 
-    NEMO HUB - EMERGENCY REPAIR V37
-    [ GUARANTEED OPEN ] - [ NO LOADING STICK ]
+    NEMO HUB - INSTANT OPEN V38
+    [ NO LOADING ] - [ DIRECT INJECT ]
     OWNER: ABBAS (ABIS222)
 ]]--
 
--- 1. تشغيل السكربت الأصلي فوراً (بدون أي تأخير أو شروط)
+-- [ 1. تشغيل السكربت الأصلي فوراً بدون أي تأخير ]
 task.spawn(function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/realredz/Reds-Hub/main/Main.lua"))()
+    pcall(function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/realredz/Reds-Hub/main/Main.lua"))()
+    end)
 end)
 
--- 2. محرك تغيير الحقوق المتأخر (Delayed Morph)
--- سينتظر ظهور القائمة أولاً ثم يغير الاسم لـ NEMO HUB
+-- [ 2. محرك تغيير الحقوق (يعمل بعد الفتح بـ 5 ثواني) ]
 task.spawn(function()
-    task.wait(10) -- انتظار القائمة تفتح وتستقر
+    task.wait(5) -- ننتظر القائمة تفتح أولاً لكي لا يعلق اللودينج
     while true do
         pcall(function()
             for _, v in pairs(game:GetService("CoreGui"):GetDescendants()) do
                 if v:IsA("TextLabel") or v:IsA("TextButton") then
-                    if v.Text:find("REDZ") or v.Text:find("Redz") then
+                    if v.Text:lower():find("redz") then
                         v.Text = "NEMO HUB"
                     end
                 end
-                -- تغيير اللون للأخضر
-                if v:IsA("TextButton") and v.BackgroundColor3 ~= Color3.fromRGB(0, 255, 150) then
-                    v.BackgroundColor3 = Color3.fromRGB(0, 255, 150)
-                end
             end
         end)
-        task.wait(2)
+        task.wait(3) -- فحص كل 3 ثواني لضمان بقاء اسمك
     end
 end)
