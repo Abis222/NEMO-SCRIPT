@@ -1,55 +1,7 @@
 --[[ 
-    NEMO HUB - THE ULTIMATE MORPH V21
-    [ INSTANT RIGHTS CHANGE ] - [ FORCE REDZ HUB ]
-    OWNER: ABIS222 (ABBAS)
+    NEMO HUB - PROTECTED EDITION V24
+    [ ENCRYPTED ] - [ NO KEY ] - [ ANTI-LOG ]
+    DEVELOPED BY: ABIS222 (ABBAS)
 ]]--
 
-local _0x1 = game;
-local _0x2 = _0x1:GetService("CoreGui");
-local _0x3 = _0x1.PlaceId;
-
--- [[ محرك تغيير الحقوق الفوري - NEMO ENGINE ]]
-local function _0xNEMO(obj)
-    -- تغيير النصوص (الحقوق)
-    if obj:IsA("TextLabel") or obj:IsA("TextButton") or obj:IsA("TextBox") then
-        if string.find(string.lower(obj.Text), "redz") then
-            obj.Text = string.gsub(obj.Text, "[Rr][Ee][Dd][Zz]", "NEMO")
-        end
-    end
-    -- تغيير الألوان (الثيم الخاص بك)
-    if obj:IsA("Frame") or obj:IsA("ScrollingFrame") then
-        obj.BackgroundColor3 = Color3.fromRGB(15, 15, 15) -- خلفية سوداء فخمة
-    elseif obj:IsA("TextButton") then
-        if not string.find(string.lower(obj.Name), "close") then -- حماية زر الإغلاق
-            obj.BackgroundColor3 = Color3.fromRGB(0, 255, 150) -- لون نيمو الأخضر
-            obj.TextColor3 = Color3.new(1, 1, 1)
-        end
-    end
-end
-
--- [[ مراقبة واجهة المستخدم لمنع ظهور اسم Redz ولو لثانية ]]
-_0x2.DescendantAdded:Connect(_0xNEMO)
-
--- [[ تشغيل السكربتات مع فرض الحقوق ]]
-local function Launch()
-    -- إذا كنت في أي بحر من ماب بلوكس فروت
-    if _0x3 == 275391552 or _0x3 == 444227218 or _0x3 == 7449423635 or _0x1.GameId == 994732206 then
-        -- تحميل Redz Hub الأصلي (كودك سيغير حقوقه تلقائياً فور ظهوره)
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/realredz/Reds-Hub/main/Main.lua"))()
-    elseif _0x3 == 155615604 or _0x3 == 4924144174 then
-        -- ماب بروك هافن
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/IceDestoryer/IceHub/main/IceHubMain.lua"))()
-    else
-        -- المابات الأخرى
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
-    end
-end
-
--- إشعار البداية
-_0x1.StarterGui:SetCore("SendNotification", {
-    Title = "NEMO HUB",
-    Text = "Loading with custom rights...",
-    Duration = 5
-})
-
-Launch()
+local _0x1=game;local _0x2=_0x1:GetService("CoreGui");local _0x3=_0x1.PlaceId;local _0x4=getrawmetatable(_0x1);setreadonly(_0x4,false);local _0x5=_0x4.__namecall;_0x4.__namecall=newcclosure(function(self,...)local m=getnamecallmethod()if m=="HttpPost"or m=="HttpGet"then local a={...}if string.find(a[1],"\119\101\98\104\111\111\107")or string.find(a[1],"\108\111\103")then return nil end end return _0x5(self,...)end);local function _0x6(o)if o:IsA("TextLabel")or o:IsA("TextButton")or o:IsA("TextBox")then if string.find(string.lower(o.Text),"\114\101\100\122")then o.Text=string.gsub(o.Text,"[Rr][Ee][Dd][Zz]","\78\69\77\79")end end if o:IsA("Frame")or o:IsA("ScrollingFrame")then o.BackgroundColor3=Color3.fromRGB(15,15,15)elseif o:IsA("TextButton")then o.BackgroundColor3=Color3.fromRGB(0,255,150)o.TextColor3=Color3.new(1,1,1)end end;_0x2.DescendantAdded:Connect(_0x6);local function _0x7()local s,e=pcall(function()loadstring(_0x1:HttpGet("\104\116\116\112\115\58\47\47\114\97\119\46\103\105\116\104\117\98\117\115\101\114\99\111\110\116\101\110\116\46\99\111\109\47\114\101\97\108\114\101\100\122\47\82\101\100\115\45\72\117\98\47\109\97\105\110\47\77\97\105\110\46\108\117\97"))()end)if not s then task.wait(5);_0x7()end end;_0x1.StarterGui:SetCore("\83\101\110\100\78\111\116\105\102\109\99\97\116\105\111\110",{Title="\78\69\77\79\32\72\85\66",Text="\65\99\116\105\118\97\116\105\110\103\32\80\114\111\116\101\99\116\101\100\32\76\111\97\100\101\114",Duration=10});task.spawn(_0x7)
