@@ -1,56 +1,54 @@
--- NEMO HUB | MANUAL CODE VERSION (NO IMAGES)
+-- NEMO HUB | FINAL ROUNDED FIX
 local CoreGui = game:GetService("CoreGui")
 
--- تنظيف أي أثر قديم
+-- تنظيف شامل
 for _, v in pairs(CoreGui:GetChildren()) do
-    if v.Name == "NEMO_MANUAL" then v:Destroy() end
+    if v.Name == "NEMO_FINAL" then v:Destroy() end
 end
 
 local ScreenGui = Instance.new("ScreenGui", CoreGui)
-ScreenGui.Name = "NEMO_MANUAL"
-ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ScreenGui.Name = "NEMO_FINAL"
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global -- تغيير لضمان ظهور العناصر فوق بعضها
 
--- 1. القائمة الرئيسية (رسم يدوي للحواف)
+-- 1. القائمة الدائرية (نفس التي في صورتك)
 local Main = Instance.new("Frame", ScreenGui)
 Main.Name = "MainFrame"
 Main.Size = UDim2.new(0, 420, 0, 260)
 Main.Position = UDim2.new(0.5, -210, 0.5, -130)
-Main.BackgroundColor3 = Color3.fromRGB(15, 15, 15) -- أسود ملكي
+Main.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
 Main.BorderSizePixel = 0
-Main.ZIndex = 1
+Main.ZIndex = 1 -- الطبقة الخلفية
 Main.Visible = true
 Main.Active = true
 Main.Draggable = true
 
--- [ الأمر اليدوي لجعل الحواف دائرية ]
-local RoundEffect = Instance.new("UICorner", Main)
-RoundEffect.CornerRadius = UDim2.new(0, 20) -- نفس القوس الذي رسمته بيدك
+-- سر الحواف الدائرية
+local Corner = Instance.new("UICorner", Main)
+Corner.CornerRadius = UDim2.new(0, 20)
 
--- 2. نص الحقوق (NEMO HUB)
+-- 2. نص الحقوق (NEMO HUB) - أصلحنا ظهوره هنا
 local Credits = Instance.new("TextLabel", Main)
 Credits.Text = "NEMO HUB"
-Credits.Size = UDim2.new(0, 150, 0, 40)
+Credits.Size = UDim2.new(0, 200, 0, 50)
 Credits.Position = UDim2.new(0, 20, 0, 10) 
 Credits.BackgroundTransparency = 1
 Credits.TextColor3 = Color3.fromRGB(0, 255, 0) -- أخضر فاقع
-Credits.TextSize = 22
+Credits.TextSize = 24
 Credits.Font = Enum.Font.GothamBold
-Credits.ZIndex = 5
+Credits.ZIndex = 10 -- [مهم] رقم عالي ليظهر فوق السواد
+Credits.Visible = true
 
--- 3. الزر الدائري (رسم يدوي دائري)
+-- 3. الزر الدائري (الذي يفتح ويغلق)
 local Toggle = Instance.new("TextButton", ScreenGui)
-Toggle.Name = "NEMO_BUTTON"
-Toggle.Size = UDim2.new(0, 55, 0, 55) -- مقاس متناسق
+Toggle.Size = UDim2.new(0, 55, 0, 55)
 Toggle.Position = UDim2.new(0.1, 0, 0.1, 0)
-Toggle.BackgroundColor3 = Color3.fromRGB(255, 255, 0) -- أصفر حالياً لنتأكد من ظهوره
+Toggle.BackgroundColor3 = Color3.fromRGB(255, 255, 0) -- أصفر حالياً لنراه
 Toggle.Text = "NEMO"
-Toggle.ZIndex = 10
+Toggle.ZIndex = 20 -- أعلى طبقة
 Toggle.Draggable = true
-Toggle.BorderSizePixel = 0
 
--- [ تحويل الزر لدائرة كاملة يدوياً ]
-local ButtonRound = Instance.new("UICorner", Toggle)
-ButtonRound.CornerRadius = UDim2.new(1, 0) -- دائرة 100%
+local BtnCorner = Instance.new("UICorner", Toggle)
+BtnCorner.CornerRadius = UDim2.new(1, 0)
 
 -- برمجة الفتح والإغلاق
 Toggle.MouseButton1Click:Connect(function()
