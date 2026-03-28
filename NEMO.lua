@@ -1,18 +1,44 @@
--- كود NEMO HUB PRO التجريبي
-repeat task.wait() until game:IsLoaded()
-if game:GetService("CoreGui"):FindFirstChild("NEMO_FINAL_HUB") then game:GetService("CoreGui"):FindFirstChild("NEMO_FINAL_HUB"):Destroy() end
+-- 1. كسر التخزين القديم
+if game:GetService("CoreGui"):FindFirstChild("Orion") then
+    game:GetService("CoreGui"):FindFirstChild("Orion"):Destroy()
+end
 
-local ScreenGui = Instance.new("ScreenGui", game:GetService("CoreGui"))
-ScreenGui.Name = "NEMO_FINAL_HUB"
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
-local Main = Instance.new("Frame", ScreenGui)
-Main.Size = UDim2.new(0, 520, 0, 320)
-Main.Position = UDim2.new(0.3, 0, 0.25, 0)
-Main.BackgroundColor3 = Color3.fromRGB(20, 20, 22)
-Instance.new("UICorner", Main).CornerRadius = UDim2.new(0, 10)
+-- 2. إنشاء النافذة (تصميم نيمو هوب الاحترافي)
+local Window = OrionLib:MakeWindow({
+    Name = "NEMO HUB | PRO VERSION", 
+    HidePremium = false, 
+    SaveConfig = true, 
+    ConfigFolder = "NEMO_CONFIG",
+    IntroText = "Welcome to NEMO HUB"
+})
 
-local Title = Instance.new("TextLabel", Main)
-Title.Text = "NEMO HUB | CONNECTED VIA VPN"
-Title.Size = UDim2.new(1, 0, 0, 40)
-Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-Title.BackgroundTransparency = 1
+-- 3. إضافة الأقسام (Tabs) - كما في طلبك
+local MainTab = Window:MakeTab({
+    Name = "Main",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+local FarmTab = Window:MakeTab({
+    Name = "Auto Farm",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+-- 4. إضافة أزرار تجريبية
+MainTab:AddButton({
+    Name = "Click to Test!",
+    Callback = function()
+        print("NEMO HUB IS WORKING!")
+        OrionLib:MakeNotification({
+            Name = "Success!",
+            Content = "NEMO HUB Started Successfully",
+            Image = "rbxassetid://4483345998",
+            Time = 5
+        })
+    end    
+})
+
+OrionLib:Init()
