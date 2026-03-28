@@ -1,14 +1,17 @@
--- تغيير اسم التعريف لكسر التخزين القديم
-if _G.NEMO_LOADED then
-    local old = game:GetService("CoreGui"):FindFirstChild("NEMO_FINAL_UI")
-    if old then old:Destroy() end
+-- 1. الانتظار حتى تحميل اللعبة بالكامل (نصيحتك رقم 3)
+repeat task.wait() until game:IsLoaded()
+
+-- 2. تنظيف النسخ القديمة
+if game:GetService("CoreGui"):FindFirstChild("NEMO_FINAL_HUB") then
+    game:GetService("CoreGui"):FindFirstChild("NEMO_FINAL_HUB"):Destroy()
 end
-_G.NEMO_LOADED = true
 
+-- 3. إنشاء الواجهة في CoreGui (نصيحتك رقم 4)
 local ScreenGui = Instance.new("ScreenGui", game:GetService("CoreGui"))
-ScreenGui.Name = "NEMO_FINAL_UI"
+ScreenGui.Name = "NEMO_FINAL_HUB"
+ScreenGui.ResetOnSpawn = false
 
--- القائمة الرئيسية (تصميم الصورة الثانية)
+-- الإطار الرئيسي (التصميم الفخم من الصورة الثانية)
 local MainFrame = Instance.new("Frame", ScreenGui)
 MainFrame.Size = UDim2.new(0, 520, 0, 320)
 MainFrame.Position = UDim2.new(0.3, 0, 0.25, 0)
@@ -18,7 +21,7 @@ MainFrame.Active = true
 MainFrame.Draggable = true
 Instance.new("UICorner", MainFrame).CornerRadius = UDim2.new(0, 10)
 
--- الهيدر العلوي
+-- الهيدر العلوي (بدون صور خارجية لتجنب التعليق)
 local Header = Instance.new("Frame", MainFrame)
 Header.Size = UDim2.new(1, 0, 0, 35)
 Header.BackgroundColor3 = Color3.fromRGB(28, 28, 30)
@@ -26,7 +29,7 @@ Header.BorderSizePixel = 0
 Instance.new("UICorner", Header).CornerRadius = UDim2.new(0, 10)
 
 local Title = Instance.new("TextLabel", Header)
-Title.Text = "NEMO HUB by Abbas (ABIS222)"
+Title.Text = "NEMO HUB | by Abbas (ABIS222)"
 Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 Title.Size = UDim2.new(1, -50, 1, 0)
 Title.Position = UDim2.new(0, 15, 0, 0)
@@ -35,7 +38,7 @@ Title.TextXAlignment = Enum.TextXAlignment.Left
 Title.Font = Enum.Font.GothamBold
 Title.TextSize = 14
 
--- القائمة الجانبية (نفس أزرار الصورة الثانية)
+-- القائمة الجانبية (الأزرار)
 local SideBar = Instance.new("ScrollingFrame", MainFrame)
 SideBar.Size = UDim2.new(0, 130, 1, -45)
 SideBar.Position = UDim2.new(0, 8, 0, 40)
@@ -48,10 +51,10 @@ local Layout = Instance.new("UIListLayout", SideBar)
 Layout.Padding = UDim2.new(0, 6)
 Layout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 
--- وظيفة إنشاء الأزرار الفخمة
+-- وظيفة إنشاء الأزرار
 local function AddTab(name, isActive)
     local btn = Instance.new("TextButton", SideBar)
-    btn.Size = UDim2.new(0.9, 0, 0, 32)
+    btn.Size = UDim2.new(0.95, 0, 0, 32)
     btn.Text = "  " .. name
     btn.Font = Enum.Font.GothamSemibold
     btn.TextSize = 13
@@ -62,15 +65,14 @@ local function AddTab(name, isActive)
     return btn
 end
 
--- إضافة الأقسام بالترتيب
+-- إضافة الأقسام المطلوبة
 AddTab("Main", true)
 AddTab("Skill", false)
 AddTab("Auto Farm", false)
 AddTab("Teleport", false)
 AddTab("Quest", false)
-AddTab("Status", false)
 
--- الزر العائم "NO" (الدائري الأحمر)
+-- الزر العائم "NO" الأحمر
 local Toggle = Instance.new("TextButton", ScreenGui)
 Toggle.Size = UDim2.new(0, 50, 0, 50)
 Toggle.Position = UDim2.new(0.05, 0, 0.15, 0)
