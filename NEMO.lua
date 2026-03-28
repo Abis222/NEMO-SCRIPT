@@ -1,21 +1,39 @@
-local RedzLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/real-redz/RedzLibV5/main/Source.lua"))()
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
 
-local Window = RedzLib:MakeWindow({
-  Title = "NEMO HUB",
-  SubTitle = "by Abbas",
-  Icon = "rbxassetid://15298567397",
-  SaveFolder = "NemoConfig.json"
+-- إنشاء النافذة (القائمة الرئيسية)
+local Window = OrionLib:MakeWindow({
+    Name = "NEMO HUB | by Abbas", 
+    HidePremium = false, 
+    SaveConfig = true, 
+    ConfigFolder = "NemoConfig",
+    IntroText = "Welcome Abbas to NEMO HUB" -- نص ترحيبي عند الفتح
 })
 
-Window:AddMinimizeButton({
-  ButtonText = "NO",
-  Description = "NEMO HUB Toggle",
-  Icon = "rbxassetid://15298567397" 
-})
-
+-- إنشاء القسم الرئيسي (Main)
 local MainTab = Window:MakeTab({
-  Name = "Main",
-  Icon = "rbxassetid://4483345998"
+    Name = "Main",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
 })
 
-MainTab:AddSection({"Welcome Abbas to NEMO HUB"})
+-- إضافة نص داخل القسم
+MainTab:AddSection({
+    Name = "NEMO HUB is Active!"
+})
+
+-- زر للتجربة (سنضيف الأوامر لاحقاً)
+MainTab:AddButton({
+    Name = "Click to Test",
+    Callback = function()
+        print("NEMO HUB Working!")
+        OrionLib:MakeNotification({
+            Name = "Success",
+            Content = "NEMO HUB Loaded Successfully!",
+            Image = "rbxassetid://4483345998",
+            Time = 5
+        })
+    end    
+})
+
+-- تشغيل المكتبة
+OrionLib:Init()
