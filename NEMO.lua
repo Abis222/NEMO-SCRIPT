@@ -1,76 +1,63 @@
--- NEMO HUB | RAINBOW & BLACK EDITION
+-- NEMO HUB | RAINBOW CLEAN EDITION
 local CoreGui = game:GetService("CoreGui")
-local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
 
+-- [ خطوة التنظيف: مسح أي قائمة قديمة لمنع التداخل ]
 for _, v in pairs(CoreGui:GetChildren()) do
-    if v.Name == "NEMO_FINAL_DESIGN" then v:Destroy() end
+    if v.Name == "NEMO_FINAL_DESIGN" or v:FindFirstChild("MainFrame") or v.Name == "NEMO_FORCE" then 
+        v:Destroy() 
+    end
 end
 
 local ScreenGui = Instance.new("ScreenGui", CoreGui)
 ScreenGui.Name = "NEMO_FINAL_DESIGN"
 ScreenGui.DisplayOrder = 1000
 
--- 1. القائمة الكبيرة الاحترافية
+-- 1. القائمة الكبيرة (خلفية سوداء فخمة وإطار ملون)
 local Main = Instance.new("Frame", ScreenGui)
+Main.Name = "MainFrame"
 Main.Size = UDim2.new(0, 420, 0, 260)
 Main.Position = UDim2.new(0.5, -210, 0.5, -130)
-Main.BackgroundColor3 = Color3.fromRGB(20, 20, 20) -- أسود داكن فخم
-Main.Visible = true -- تظهر فوراً
+Main.BackgroundColor3 = Color3.fromRGB(15, 15, 15) -- أسود أعمق
+Main.Visible = true
 Main.Active = true
 Main.Draggable = true
 
--- [ حواف القائمة متناسقة مع حواف الزر ]
+-- [ حواف دائرية للقائمة ]
 local MainCorner = Instance.new("UICorner", Main)
-MainCorner.CornerRadius = UDim2.new(0, 12) -- حواف ناعمة ودائرية
+MainCorner.CornerRadius = UDim2.new(0, 15)
 
--- [ إطار الـ Rainbow ]
+-- [ إطار الـ Rainbow الملون ]
 local RainbowStroke = Instance.new("UIStroke", Main)
-RainbowStroke.Thickness = 2.5
-RainbowStroke.Color = Color3.fromHSV(0, 1, 1) -- اللون الابتدائي
+RainbowStroke.Thickness = 3
+RainbowStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 
--- برمجة تأثير Rainbow
+-- برمجة ألوان قوس قزح للإطار
 RunService.RenderStepped:Connect(function()
-    local h = tick() % 5 / 5 -- سرعة التغير
+    local h = tick() % 5 / 5
     RainbowStroke.Color = Color3.fromHSV(h, 1, 1)
 end)
 
--- نص العنوان
-local Title = Instance.new("TextLabel", Main)
-Title.Size = UDim2.new(1, 0, 0, 45)
-Title.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-Title.Text = "  NEMO HUB | by ABBAS (ABIS222)"
-Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-Title.Font = Enum.Font.GothamBold
-Title.TextXAlignment = Enum.TextXAlignment.Left
-local TitleCorner = Instance.new("UICorner", Title)
-TitleCorner.CornerRadius = UDim2.new(0, 12)
-
--- 2. الزر العائم (المطور والمصغر)
+-- 2. الزر العائم (أسود صغير، نص أخضر، حواف دائرية)
 local Toggle = Instance.new("TextButton", ScreenGui)
-Toggle.Size = UDim2.new(0, 50, 0, 50) -- [ تصغير مقاس الدائرة ]
+Toggle.Size = UDim2.new(0, 50, 0, 50) -- مصغر جداً وأنيق
 Toggle.Position = UDim2.new(0.05, 0, 0.15, 0)
-Toggle.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- [ جعل الزر أسود ]
-Toggle.Text = "NEMO" -- [ النص ]
-Toggle.TextColor3 = Color3.fromRGB(0, 255, 0) -- [ جعل النص أخضر ]
+Toggle.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- أسود
+Toggle.Text = "NEMO"
+Toggle.TextColor3 = Color3.fromRGB(0, 255, 0) -- أخضر فاقع
 Toggle.Font = Enum.Font.GothamBold
-Toggle.TextSize = 14
+Toggle.TextSize = 12
 Toggle.Draggable = true
-Toggle.BorderSizePixel = 0
 
--- [ حواف الزر الدائرية ]
 local ToggleCorner = Instance.new("UICorner", Toggle)
-ToggleCorner.CornerRadius = UDim2.new(1, 0) -- دائرة كاملة
+ToggleCorner.CornerRadius = UDim2.new(1, 0) -- دائري تماماً مثل القائمة
 
--- 3. برمجة الضغط (InputBegan) المضمونة لجهاز Oppo
-Toggle.InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-        Main.Visible = not Main.Visible
-        -- تأثير بسيط عند الضغط (تكبير وتصغير)
-        local tween = TweenService:Create(Toggle, TweenInfo.new(0.2), {Size = UDim2.new(0, 55, 0, 55)})
-        tween:Play()
-        tween.Completed:Connect(function()
-            TweenService:Create(Toggle, TweenInfo.new(0.2), {Size = UDim2.new(0, 50, 0, 50)}):Play()
-        end)
-    end
+-- 3. برمجة اللمس المضمونة (استجابة فورية)
+Toggle.MouseButton1Click:Connect(function()
+    Main.Visible = not Main.Visible
+end)
+
+-- دعم إضافي للمس الشاشة في Oppo
+Toggle.TouchTap:Connect(function()
+    Main.Visible = not Main.Visible
 end)
