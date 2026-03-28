@@ -1,4 +1,4 @@
--- NEMO HUB | UNIFORM EDGES FIX
+-- NEMO HUB | FINAL UNIFORM EDGES (IMAGE METHOD)
 local CoreGui = game:GetService("CoreGui")
 
 for _, v in pairs(CoreGui:GetChildren()) do
@@ -9,16 +9,20 @@ local ScreenGui = Instance.new("ScreenGui", CoreGui)
 ScreenGui.Name = "NEMO_PRO"
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
 
--- 1. الإطار الرئيسي (استخدام صورة لضمان مساواة الحواف)
+-- 1. القائمة (استخدام ImageLabel لضمان عدم ظهور السواد)
 local Main = Instance.new("ImageLabel", ScreenGui)
 Main.Name = "MainFrame"
 Main.Size = UDim2.new(0, 560, 0, 330) 
 Main.Position = UDim2.new(0.5, -280, 0.5, -165)
 Main.BackgroundTransparency = 1 
-Main.Image = "rbxassetid://3570695787" -- صورة الحواف الدائرية المتساوية
+Main.Image = "rbxassetid://3570695787" -- صورة الحواف الاحترافية
 Main.ImageColor3 = Color3.fromRGB(15, 15, 15)
+
+-- [ التعديل الهندسي لمساواة الحواف ]
 Main.ScaleType = Enum.ScaleType.Slice
-Main.SliceCenter = Rect.new(100, 100, 100, 100) -- ضمان توزيع الحواف بالتساوي
+Main.SliceCenter = Rect.new(100, 100, 100, 100) -- هذا الميزان يضمن تساوي الزوايا الأربعة
+Main.SliceScale = 0.12 -- ضبط نعومة الانحناء ليكون متساوياً
+
 Main.ZIndex = 1
 Main.Visible = true
 Main.Active = true
@@ -36,7 +40,7 @@ Title.Font = Enum.Font.GothamBold
 Title.TextXAlignment = Enum.TextXAlignment.Left
 Title.ZIndex = 10
 
--- 3. الزر الدائري
+-- 3. الزر الدائري (NEMO)
 local Toggle = Instance.new("ImageButton", ScreenGui)
 Toggle.Name = "NemoToggle"
 Toggle.Size = UDim2.new(0, 60, 0, 60)
@@ -56,6 +60,7 @@ ToggleText.Font = Enum.Font.GothamBold
 ToggleText.TextSize = 12
 ToggleText.ZIndex = 51
 
+-- برمجة الفتح والإغلاق
 Toggle.MouseButton1Click:Connect(function()
     Main.Visible = not Main.Visible
 end)
