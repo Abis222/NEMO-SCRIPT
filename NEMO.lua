@@ -1,77 +1,73 @@
+-- NEMO HUB | FINAL DESIGN | VISIBLE DARK THEME
 local CoreGui = game:GetService("CoreGui")
 
--- حذف أي نسخة قديمة لضمان نظافة التشغيل
-if CoreGui:FindFirstChild("NEMO_ULTIMATE_DESIGN") then
-    CoreGui.NEMO_ULTIMATE_DESIGN:Destroy()
+for _, v in pairs(CoreGui:GetChildren()) do
+    if v.Name == "NEMO_PRO" then v:Destroy() end
 end
 
-local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "NEMO_ULTIMATE_DESIGN"
-ScreenGui.Parent = CoreGui
+local ScreenGui = Instance.new("ScreenGui", CoreGui)
+ScreenGui.Name = "NEMO_PRO"
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
 
--- 1. القائمة الرئيسية (ImageLabel) - للحصول على الحواف العميقة جداً كما في الصورة
-local MainFrame = Instance.new("ImageLabel")
+-- 1. الإطار الرئيسي (الآن داكن جداً وواضح)
+local MainFrame = Instance.new("ImageLabel", ScreenGui)
 MainFrame.Name = "MainFrame"
-MainFrame.Parent = ScreenGui
--- [ ميزة الحواف الدائرية العميقة والناعمة ]
--- هذه الصورة هي السر في الحصول على نفس المظهر الموجود في لقطة الشاشة
-MainFrame.Image = "rbxassetid://15268390117" 
-MainFrame.ImageColor3 = Color3.fromRGB(15, 15, 15) -- لون أسود
+MainFrame.Size = UDim2.new(0, 520, 0, 310) 
+MainFrame.Position = UDim2.new(0.5, -260, 0.5, -155)
+-- [ التعديل الجذري للشفافية ]
+MainFrame.BackgroundTransparency = 1 -- جعل الخلفية البرمجية شفافة
+MainFrame.Image = "rbxassetid://3570695787" -- الحواف الدائرية الأنيقة
+MainFrame.ImageColor3 = Color3.fromRGB(15, 15, 15) -- تلوين الصورة بالأسود الداكن لضمان الرؤية
+MainFrame.ImageTransparency = 0.05 --
 MainFrame.ScaleType = Enum.ScaleType.Slice
-MainFrame.SliceCenter = Rect.new(100, 100, 100, 100) -- توزيع الحواف بالتساوي
-MainFrame.SliceScale = 0.5 -- جعل الانحناء عميقاً جداً وناعماً
-MainFrame.BackgroundTransparency = 1 -- جعل الخلفية شفافة لظهور الصورة
-
--- [ ضبط الحجم ليكون كبيراً ولا يخرج عن الشاشة ]
-MainFrame.Size = UDim2.new(0, 520, 0, 310)
-MainFrame.Position = UDim2.new(0.5, -260, 0.5, -155) -- تمركز دقيق
+MainFrame.SliceCenter = Rect.new(100, 100, 100, 100)
+MainFrame.SliceScale = 0.12
+MainFrame.ZIndex = 1
 MainFrame.Visible = true
 MainFrame.Active = true
-MainFrame.Draggable = true -- يمكنك سحبها إذا أردت
+MainFrame.Draggable = true
 
--- العنوان (NEMO HUB) - لونه أخضر كما في الصورة
-local Title = Instance.new("TextLabel")
-Title.Parent = MainFrame
+-- العنوان النصي (يبقى أخضر كما طلبت)
+local Title = Instance.new("TextLabel", MainFrame)
 Title.Text = "NEMO HUB by Abbas"
-Title.Size = UDim2.new(0, 250, 0, 40)
-Title.Position = UDim2.new(0, 30, 0, 15) -- إزاحة داخلية بسيطة
-Title.TextColor3 = Color3.fromRGB(0, 255, 0) -- أخضر فاقع
+Title.Size = UDim2.new(0, 300, 0, 40)
+Title.Position = UDim2.new(0, 30, 0, 15) 
 Title.BackgroundTransparency = 1
-Title.TextSize = 20
+Title.TextColor3 = Color3.fromRGB(0, 255, 0) -- أخضر فاقع
+Title.TextSize = 22
 Title.Font = Enum.Font.GothamBold
-Title.TextXAlignment = Enum.TextXAlignment.Left -- محاذاة لليسار
-Title.ZIndex = 10 -- أعلى القائمة
+Title.TextXAlignment = Enum.TextXAlignment.Left
+Title.ZIndex = 10
 
----------------------------------------------------------
--- 2. الزر (NEMO) - شفاف ودائري كما في الصورة
----------------------------------------------------------
-local ToggleBtn = Instance.new("TextButton")
-ToggleBtn.Name = "NemoButton"
-ToggleBtn.Parent = ScreenGui
-ToggleBtn.Size = UDim2.new(0, 60, 0, 60)
-ToggleBtn.Position = UDim2.new(0, 20, 0, 20) -- أعلى الزاوية اليسرى
-ToggleBtn.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-ToggleBtn.BackgroundTransparency = 0.6 -- شفافية عالية كما في الصورة
-ToggleBtn.Text = "NEMO"
-ToggleBtn.TextColor3 = Color3.fromRGB(0, 255, 0) -- أخضر
-ToggleBtn.Font = Enum.Font.GothamBold
-ToggleBtn.TextSize = 12
-ToggleBtn.ZIndex = 10000 -- لضمان بقائه فوق كل شيء
-ToggleBtn.Active = true
-ToggleBtn.Draggable = true
+-- الأيقونة (كما هي)
+local Icon = Instance.new("ImageLabel", MainFrame)
+Icon.Name = "UserIcon"
+Icon.Size = UDim2.new(0, 50, 0, 50)
+Icon.Position = UDim2.new(0.5, -25, 0, 10) 
+Icon.BackgroundTransparency = 1
+Icon.Image = "rbxassetid://15268390117" -- مثال: أيقونة نينجا
+Icon.ZIndex = 11
 
--- جعل الزر دائرياً تماماً
-local ButtonCorner = Instance.new("UICorner", ToggleBtn)
-ButtonCorner.CornerRadius = UDIm2.new(1, 0) -- جعل الانحناء 100%
+-- 2. الزر الدائري للفتح والإغلاق
+local Toggle = Instance.new("ImageButton", ScreenGui)
+Toggle.Name = "NemoToggle"
+Toggle.Size = UDim2.new(0, 60, 0, 60)
+Toggle.Position = UDim2.new(0.05, 0, 0.15, 0)
+Toggle.BackgroundTransparency = 1
+Toggle.Image = "rbxassetid://6031068433" 
+Toggle.ImageColor3 = Color3.fromRGB(20, 20, 20)
+Toggle.ZIndex = 50
+Toggle.Draggable = true
 
--- إضافة إطار مضيء للزر الدائري
-local ButtonStroke = Instance.new("UIStroke", ToggleBtn)
-ButtonStroke.Color = Color3.fromRGB(0, 255, 0)
-ButtonStroke.Thickness = 1
-ButtonStroke.Transparency = 0.5
+local ToggleText = Instance.new("TextLabel", Toggle)
+ToggleText.Text = "NEMO"
+ToggleText.Size = UDim2.new(1, 0, 1, 0)
+ToggleText.BackgroundTransparency = 1
+ToggleText.TextColor3 = Color3.fromRGB(0, 255, 0)
+ToggleText.Font = Enum.Font.GothamBold
+ToggleText.TextSize = 12
+ToggleText.ZIndex = 51
 
--- وظيفة الإخفاء والإظهار
-ToggleBtn.MouseButton1Click:Connect(function()
+Toggle.MouseButton1Click:Connect(function()
     MainFrame.Visible = not MainFrame.Visible
 end)
