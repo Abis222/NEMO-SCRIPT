@@ -1,46 +1,46 @@
--- NEMO HUB | ULTIMATE LARGE VERSION (CLEAN TITLE)
+-- NEMO HUB | IDEAL SIZE VERSION (BASED ON IMAGE 2)
 local CoreGui = game:GetService("CoreGui")
 
+-- تنظيف النسخ القديمة
 for _, v in pairs(CoreGui:GetChildren()) do
-    if v.Name == "NEMO_PRO" then v:Destroy() end
+    if v.Name == "NEMO_PRO" or v.Name == "NEMO_FINAL" or v.Name == "NEMO_STABLE" then v:Destroy() end
 end
 
 local ScreenGui = Instance.new("ScreenGui", CoreGui)
 ScreenGui.Name = "NEMO_PRO"
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
 
--- 1. الإطار الرئيسي (تم تكبيره جداً بناءً على الصورة)
+-- 1. الإطار الرئيسي (تم تعديل الحجم ليتطابق مع الصورة الثانية تماماً)
 local Main = Instance.new("ImageLabel", ScreenGui)
 Main.Name = "MainFrame"
--- [ التعديل: حجم ضخم ليملا الشاشة كما في الرسم ]
-Main.Size = UDim2.new(0, 800, 0, 450) 
-Main.Position = UDim2.new(0.5, -400, 0.5, -225) -- إعادة التوسيط
+-- [ التعديل: حجم متناسق واحترافي كما في الصورة الثانية ]
+Main.Size = UDim2.new(0, 560, 0, 330) 
+Main.Position = UDim2.new(0.5, -280, 0.5, -165) -- إعادة التوسيط الدقيق
 Main.BackgroundTransparency = 1 
-Main.Image = "rbxassetid://3570695787" -- الحواف الدائرية المضمونة
-Main.ImageColor3 = Color3.fromRGB(15, 15, 15) -- أسود ملكي
+Main.Image = "rbxassetid://3570695787" -- الحواف الدائرية الأنيقة والمضمونة
+Main.ImageColor3 = Color3.fromRGB(15, 15, 15) -- أسود ملكي داكن
 Main.ScaleType = Enum.ScaleType.Slice
 Main.SliceCenter = Rect.new(100, 100, 100, 100)
 Main.ZIndex = 1
 Main.Visible = true
 Main.Active = true
-Main.Draggable = true -- يمكن تحريكه
+Main.Draggable = true -- قابل للتحريك
 
--- 2. نص الحقوق (NEMO HUB فقط)
+-- 2. نص العنوان (NEMO HUB)
 local Title = Instance.new("TextLabel", Main)
 Title.Name = "TitleLabel"
--- [ التعديل: النص أصبح NEMO HUB فقط ]
 Title.Text = "NEMO HUB"
-Title.Size = UDim2.new(0, 250, 0, 50)
-Title.Position = UDim2.new(0, 30, 0, 20) -- إزاحة بسيطة للداخل
+Title.Size = UDim2.new(0, 200, 0, 40)
+Title.Position = UDim2.new(0, 25, 0, 15) -- إزاحة متناسقة للعنوان
 Title.BackgroundTransparency = 1
 Title.TextColor3 = Color3.fromRGB(0, 255, 0) -- أخضر فاقع
--- [ التعديل: تكبير حجم الخط ليتناسب مع القائمة الكبيرة ]
-Title.TextSize = 28 
+-- [ التعديل: حجم خط متناسق مع الحجم الجديد ]
+Title.TextSize = 20 
 Title.Font = Enum.Font.GothamBold
 Title.TextXAlignment = Enum.TextXAlignment.Left
 Title.ZIndex = 10
 
--- 3. الزر الدائري (يبقى كما هو، فهو ممتاز)
+-- 3. الزر الدائري (يبقى كما هو، متناسق وممتاز)
 local Toggle = Instance.new("ImageButton", ScreenGui)
 Toggle.Name = "NemoToggle"
 Toggle.Size = UDim2.new(0, 60, 0, 60)
