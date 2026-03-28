@@ -1,7 +1,7 @@
--- NEMO HUB | DESIGN & CREDITS VERSION
+-- NEMO HUB | SIMPLE CREDITS ONLY
 local CoreGui = game:GetService("CoreGui")
 
--- تنظيف النسخ القديمة
+-- تنظيف أي نسخ قديمة
 for _, v in pairs(CoreGui:GetChildren()) do
     if v.Name == "NEMO_STABLE" then v:Destroy() end
 end
@@ -9,47 +9,35 @@ end
 local ScreenGui = Instance.new("ScreenGui", CoreGui)
 ScreenGui.Name = "NEMO_STABLE"
 
--- 1. القائمة الرئيسية (سوداء مع حواف دائرية)
+-- 1. القائمة الرئيسية (سوداء عادية كما في الصورة)
 local Main = Instance.new("Frame", ScreenGui)
 Main.Size = UDim2.new(0, 420, 0, 260)
 Main.Position = UDim2.new(0.5, -210, 0.5, -130)
-Main.BackgroundColor3 = Color3.fromRGB(15, 15, 15) -- أسود أعمق
+Main.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+Main.BorderSizePixel = 2 -- إطار عادي بسيط
 Main.Visible = true
 Main.Active = true
 Main.Draggable = true
 
--- [ إضافة حواف دائرية للقائمة ]
-local MainCorner = Instance.new("UICorner", Main)
-MainCorner.CornerRadius = UDim2.new(0, 12)
-
--- [ إضافة الحقوق في الزاوية المطلوبة ]
+-- 2. إضافة الحقوق فقط (NEMO HUB) في الزاوية
 local Credits = Instance.new("TextLabel", Main)
-Credits.Name = "NemoCredits"
 Credits.Text = "NEMO HUB"
 Credits.Size = UDim2.new(0, 100, 0, 30)
-Credits.Position = UDim2.new(0, 15, 0, 10) -- في الزاوية التي حددتها بالدائرة
+Credits.Position = UDim2.new(0, 10, 0, 5) -- الزاوية العلوية اليسرى
 Credits.BackgroundTransparency = 1
-Credits.TextColor3 = Color3.fromRGB(0, 255, 0) -- لون أخضر فاقع
-Credits.TextSize = 16
-Credits.Font = Enum.Font.GothamBold
-Credits.TextXAlignment = Enum.TextXAlignment.Left
+Credits.TextColor3 = Color3.fromRGB(0, 255, 0) -- أخضر لكي تراه بوضوح
+Credits.TextSize = 18
+Credits.Font = Enum.Font.SourceSansBold
 
--- 2. الزر المصغر (أسود مع نص أخضر وحواف دائرية)
+-- 3. الزر الأصفر الأصلي (الذي اشتغل معك)
 local Toggle = Instance.new("TextButton", ScreenGui)
-Toggle.Size = UDim2.new(0, 50, 0, 50) -- مقاس أصغر وأنيق
+Toggle.Size = UDim2.new(0, 60, 0, 60)
 Toggle.Position = UDim2.new(0.1, 0, 0.1, 0)
-Toggle.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- لون أسود
+Toggle.BackgroundColor3 = Color3.fromRGB(255, 255, 0) -- أصفر
 Toggle.Text = "NEMO"
-Toggle.TextColor3 = Color3.fromRGB(0, 255, 0) -- نص أخضر
-Toggle.Font = Enum.Font.GothamBold
-Toggle.TextSize = 12
 Toggle.Draggable = true
 
--- [ حواف دائرية للزر ]
-local ToggleCorner = Instance.new("UICorner", Toggle)
-ToggleCorner.CornerRadius = UDim2.new(1, 0)
-
--- 3. برمجة الفتح والإغلاق
+-- 4. برمجة الفتح والإغلاق
 Toggle.MouseButton1Click:Connect(function()
     Main.Visible = not Main.Visible
 end)
