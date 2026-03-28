@@ -1,63 +1,62 @@
--- NEMO HUB | RAINBOW CLEAN EDITION
+-- NEMO HUB | THE CLEAN RAINBOW EDITION (NEW ID)
 local CoreGui = game:GetService("CoreGui")
 local RunService = game:GetService("RunService")
 
--- [ خطوة التنظيف: مسح أي قائمة قديمة لمنع التداخل ]
-for _, v in pairs(CoreGui:GetChildren()) do
-    if v.Name == "NEMO_FINAL_DESIGN" or v:FindFirstChild("MainFrame") or v.Name == "NEMO_FORCE" then 
-        v:Destroy() 
+-- [ 1. تنظيف شامل وعنيف لكل ما هو قديم ]
+for _, child in pairs(CoreGui:GetChildren()) do
+    if child:IsA("ScreenGui") and (child.Name:find("NEMO") or child.Name:find("HUB") or child.Name:find("FINAL")) then
+        child:Destroy()
     end
 end
 
-local ScreenGui = Instance.new("ScreenGui", CoreGui)
-ScreenGui.Name = "NEMO_FINAL_DESIGN"
-ScreenGui.DisplayOrder = 1000
+-- [ 2. إنشاء الهوية الجديدة للسكربت ]
+local NewNemo = Instance.new("ScreenGui", CoreGui)
+NewNemo.Name = "NEMO_ULTRA_V1"
+NewNemo.DisplayOrder = 999
 
--- 1. القائمة الكبيرة (خلفية سوداء فخمة وإطار ملون)
-local Main = Instance.new("Frame", ScreenGui)
+-- [ 3. القائمة الرئيسية (إطار Rainbow وحواف دائرية) ]
+local Main = Instance.new("Frame", NewNemo)
 Main.Name = "MainFrame"
 Main.Size = UDim2.new(0, 420, 0, 260)
 Main.Position = UDim2.new(0.5, -210, 0.5, -130)
-Main.BackgroundColor3 = Color3.fromRGB(15, 15, 15) -- أسود أعمق
-Main.Visible = true
+Main.BackgroundColor3 = Color3.fromRGB(15, 15, 15) -- أسود ملكي
+Main.BorderSizePixel = 0
+Main.Visible = true -- تظهر فوراً للتأكد من العمل
 Main.Active = true
 Main.Draggable = true
 
--- [ حواف دائرية للقائمة ]
+-- حواف دائرية مثل الزر تماماً
 local MainCorner = Instance.new("UICorner", Main)
 MainCorner.CornerRadius = UDim2.new(0, 15)
 
--- [ إطار الـ Rainbow الملون ]
-local RainbowStroke = Instance.new("UIStroke", Main)
-RainbowStroke.Thickness = 3
-RainbowStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+-- إطار الـ Rainbow المتحرك
+local UIStroke = Instance.new("UIStroke", Main)
+UIStroke.Thickness = 3.5
+UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 
--- برمجة ألوان قوس قزح للإطار
 RunService.RenderStepped:Connect(function()
-    local h = tick() % 5 / 5
-    RainbowStroke.Color = Color3.fromHSV(h, 1, 1)
+    UIStroke.Color = Color3.fromHSV(tick() % 5 / 5, 1, 1)
 end)
 
--- 2. الزر العائم (أسود صغير، نص أخضر، حواف دائرية)
-local Toggle = Instance.new("TextButton", ScreenGui)
-Toggle.Size = UDim2.new(0, 50, 0, 50) -- مصغر جداً وأنيق
-Toggle.Position = UDim2.new(0.05, 0, 0.15, 0)
-Toggle.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- أسود
-Toggle.Text = "NEMO"
-Toggle.TextColor3 = Color3.fromRGB(0, 255, 0) -- أخضر فاقع
-Toggle.Font = Enum.Font.GothamBold
-Toggle.TextSize = 12
-Toggle.Draggable = true
+-- [ 4. الزر العائم (أسود صغير، نص أخضر، حواف دائرية) ]
+local ToggleBtn = Instance.new("TextButton", NewNemo)
+ToggleBtn.Name = "NEMO_TOGGLE"
+ToggleBtn.Size = UDim2.new(0, 50, 0, 50) -- مقاس مصغر
+ToggleBtn.Position = UDim2.new(0.05, 0, 0.2, 0)
+ToggleBtn.BackgroundColor3 = Color3.fromRGB(0, 0, 0) -- أسود
+ToggleBtn.Text = "NEMO"
+ToggleBtn.TextColor3 = Color3.fromRGB(0, 255, 0) -- نص أخضر
+ToggleBtn.Font = Enum.Font.GothamBold
+ToggleBtn.TextSize = 12
+ToggleBtn.Draggable = true
 
-local ToggleCorner = Instance.new("UICorner", Toggle)
-ToggleCorner.CornerRadius = UDim2.new(1, 0) -- دائري تماماً مثل القائمة
+local BtnCorner = Instance.new("UICorner", ToggleBtn)
+BtnCorner.CornerRadius = UDim2.new(1, 0) -- دائري تماماً
 
--- 3. برمجة اللمس المضمونة (استجابة فورية)
-Toggle.MouseButton1Click:Connect(function()
+-- [ 5. برمجة اللمس المتعدد (لحل مشكلة عدم الاستجابة) ]
+local function ToggleMenu()
     Main.Visible = not Main.Visible
-end)
+end
 
--- دعم إضافي للمس الشاشة في Oppo
-Toggle.TouchTap:Connect(function()
-    Main.Visible = not Main.Visible
-end)
+ToggleBtn.MouseButton1Click:Connect(ToggleMenu)
+ToggleBtn.TouchTap:Connect(ToggleMenu) -- دعم خاص لشاشة Oppo
