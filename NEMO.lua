@@ -1,65 +1,62 @@
--- NEMO HUB | PRO DESIGN + Z-INDEX FIX
+-- NEMO HUB | ULTIMATE ROUNDED FIX (ASSET METHOD)
 local CoreGui = game:GetService("CoreGui")
 
--- 1. تنظيف شامل لأي نسخة قديمة لمنع التداخل
 for _, v in pairs(CoreGui:GetChildren()) do
-    if v.Name == "NEMO_STABLE" then v:Destroy() end
+    if v.Name == "NEMO_PRO" then v:Destroy() end
 end
 
 local ScreenGui = Instance.new("ScreenGui", CoreGui)
-ScreenGui.Name = "NEMO_STABLE"
-ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global -- تفعيل الترتيب العالمي للطبقات
+ScreenGui.Name = "NEMO_PRO"
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Global
 
--- 2. القائمة الرئيسية (نفس حجم وحواف الصورة)
-local Main = Instance.new("Frame", ScreenGui)
+-- 1. الإطار الرئيسي (باستخدام صورة حواف دائرية جاهزة)
+local Main = Instance.new("ImageLabel", ScreenGui)
 Main.Name = "MainFrame"
-Main.Size = UDim2.new(0, 550, 0, 320) 
+Main.Size = UDim2.new(0, 550, 0, 320)
 Main.Position = UDim2.new(0.5, -275, 0.5, -160)
-Main.BackgroundColor3 = Color3.fromRGB(15, 15, 15) -- أسود ملكي
-Main.BorderSizePixel = 0
-Main.ZIndex = 1 -- الطبقة الخلفية (الأرضية)
+Main.BackgroundTransparency = 1 -- نجعل الخلفية البرمجية شفافة
+Main.Image = "rbxassetid://3570695787" -- معرف صورة حواف دائرية احترافية
+Main.ImageColor3 = Color3.fromRGB(15, 15, 15) -- تلوين الصورة بالأسود
+Main.ScaleType = Enum.ScaleType.Slice
+Main.SliceCenter = Rect.new(100, 100, 100, 100)
+Main.ZIndex = 1
 Main.Visible = true
 Main.Active = true
 Main.Draggable = true
 
--- [ حواف القائمة الانسيابية ]
-local MainCorner = Instance.new("UICorner", Main)
-MainCorner.CornerRadius = UDim2.new(0, 10)
-
--- 3. نص الحقوق (NEMO HUB by Abbas)
+-- 2. نص الحقوق (NEMO HUB by Abbas)
 local Credits = Instance.new("TextLabel", Main)
-Credits.Name = "CreditsLabel"
 Credits.Text = "NEMO HUB by Abbas (ABIS222)"
 Credits.Size = UDim2.new(0, 300, 0, 30)
-Credits.Position = UDim2.new(0, 15, 0, 8) 
+Credits.Position = UDim2.new(0, 20, 0, 15) 
 Credits.BackgroundTransparency = 1
-Credits.TextColor3 = Color3.fromRGB(0, 255, 0) -- أخضر فاقع لضمان الرؤية
-Credits.TextSize = 16
+Credits.TextColor3 = Color3.fromRGB(0, 255, 0) -- أخضر
+Credits.TextSize = 18
 Credits.Font = Enum.Font.GothamBold
-Credits.TextXAlignment = Enum.TextXAlignment.Left
-Credits.ZIndex = 10 -- [مهم] فوق القائمة السوداء
+Credits.ZIndex = 10
 
--- 4. زر الإخفاء والظهور (دائري أسود بنص أخضر)
-local Toggle = Instance.new("TextButton", ScreenGui)
+-- 3. الزر الدائري (باستخدام صورة دائرة جاهزة)
+local Toggle = Instance.new("ImageButton", ScreenGui)
 Toggle.Name = "NemoToggle"
-Toggle.Size = UDim2.new(0, 55, 0, 55)
+Toggle.Size = UDim2.new(0, 60, 0, 60)
 Toggle.Position = UDim2.new(0.05, 0, 0.15, 0)
-Toggle.BackgroundColor3 = Color3.fromRGB(20, 20, 20) -- أسود فاتح قليلاً
-Toggle.Text = "NEMO"
-Toggle.TextColor3 = Color3.fromRGB(0, 255, 0) -- أخضر
-Toggle.Font = Enum.Font.GothamBold
-Toggle.TextSize = 12
-Toggle.ZIndex = 50 -- [مهم] أعلى طبقة في كل السكربت لضمان عدم اختفائه
+Toggle.BackgroundTransparency = 1
+Toggle.Image = "rbxassetid://6031068433" -- صورة دائرة كاملة 100%
+Toggle.ImageColor3 = Color3.fromRGB(20, 20, 20)
+Toggle.ZIndex = 50
 Toggle.Draggable = true
 
--- [ حواف الزر بنفس انسيابية القائمة ]
-local ToggleCorner = Instance.new("UICorner", Toggle)
-ToggleCorner.CornerRadius = UDim2.new(0, 10) -- نفس رقم حواف القائمة (10)
+-- نص داخل الزر
+local ToggleText = Instance.new("TextLabel", Toggle)
+ToggleText.Text = "NEMO"
+ToggleText.Size = UDim2.new(1, 0, 1, 0)
+ToggleText.BackgroundTransparency = 1
+ToggleText.TextColor3 = Color3.fromRGB(0, 255, 0)
+ToggleText.Font = Enum.Font.GothamBold
+ToggleText.TextSize = 12
+ToggleText.ZIndex = 51
 
--- 5. برمجة اللمس والضغط (مضمونة الاستجابة)
-local function OnToggle()
+-- برمجة الفتح والإغلاق
+Toggle.MouseButton1Click:Connect(function()
     Main.Visible = not Main.Visible
-end
-
-Toggle.MouseButton1Click:Connect(OnToggle)
-Toggle.TouchTap:Connect(OnToggle) -- دعم خاص لشاشة Oppo
+end)
